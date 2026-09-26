@@ -1,4 +1,5 @@
 using Application.AuthModule.Repositories;
+using Application.Common.Exceptions;
 using Contracts.Auth;
 using Domain.Models.AuthModule;
 
@@ -14,7 +15,7 @@ public class AuthService(IUserRepository userRepository,
     public async Task<UserDTO> RegisterAsync(RegisterDTO request)
     {
         if (await userRepository.ExistsAsync(request.Email, request.Username))
-            throw new InvalidOperationException("Email or username already in use.");
+            throw new ConflictException("Email or username already in use.");
 
         var user = new User()
         {
@@ -35,7 +36,7 @@ public class AuthService(IUserRepository userRepository,
         var user = await userRepository.GetUserByEmailAsync(request.Email);
 
         if (user is null || !passwordHasher.Verify(request.Password, user.PasswordHash))
-            throw new UnauthorizedAccessException("Invalid email or password.");
+            throw new UnauthorizedException("Invalid email or password.");
 
         return await IssueTokensAsync(user);
     }
