@@ -4,5 +4,9 @@ namespace Application.AuthModule.Repositories;
 
 public interface IUserRepository
 {
-    public Task<User?> GetUserByIdAsync(string userId);
+    Task<User?> GetUserByIdAsync(Guid userId);
+    Task<User?> GetUserByEmailAsync(string email);
+    Task<bool> ExistsAsync(string email, string username);
+    Task AddAsync(User user);
+    Task SaveChangesAsync();
 }
