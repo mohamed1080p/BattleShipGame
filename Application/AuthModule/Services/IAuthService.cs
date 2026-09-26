@@ -6,6 +6,6 @@ public interface IAuthService
 {
     Task<UserDTO> RegisterAsync(RegisterDTO request);
     Task<UserDTO> LoginAsync(LoginDTO request);
-    Task<UserDTO> RefreshAsync(UserDTO request);
+    Task<UserDTO> RefreshAsync(RefreshRequestDTO request);
 
 }

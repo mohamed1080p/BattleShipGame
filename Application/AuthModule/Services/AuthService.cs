@@ -41,7 +41,7 @@ public class AuthService(IUserRepository userRepository,
         return await IssueTokensAsync(user);
     }
 
-    public async Task<UserDTO> RefreshAsync(UserDTO request)
+    public async Task<UserDTO> RefreshAsync(RefreshRequestDTO request)
     {
         var existingToken = await refreshTokenRepository.GetByTokenAsync(request.RefreshToken);
 
